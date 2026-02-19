@@ -1,0 +1,74 @@
+[
+  {
+    "id": "case_1",
+    "input": "map the codebase",
+    "context": "Repo path provided; expect AST map and optional CodeQL flows.",
+    "expected_behaviors": [
+      "Creates a compact map output directory with summary, imports, and exports artifacts"
+    ]
+  },
+  {
+    "id": "case_2",
+    "input": "generate a codebase map",
+    "context": "Python-only repo; should produce py_symbols.tsv and skip TS exports.",
+    "expected_behaviors": [
+      "Creates a compact map output directory with summary, imports, and exports artifacts"
+    ]
+  },
+  {
+    "id": "case_3",
+    "input": "token-efficient repo summary",
+    "context": "Large repo; CodeQL disabled for speed.",
+    "expected_behaviors": [
+      "Creates a compact map output directory with summary, imports, and exports artifacts"
+    ]
+  },
+  {
+    "id": "case_4",
+    "input": "extract call graph",
+    "context": "CodeQL available; expect call graph CSV outputs.",
+    "expected_behaviors": [
+      "Generates CodeQL call/dataflow edge CSVs when CodeQL is available"
+    ]
+  },
+  {
+    "id": "case_5",
+    "input": "run CodeQL flow analysis",
+    "context": "CodeQL available; should create dataflow CSVs.",
+    "expected_behaviors": [
+      "Generates CodeQL call/dataflow edge CSVs when CodeQL is available"
+    ]
+  },
+  {
+    "id": "case_6",
+    "input": "build AST map",
+    "context": "ast-grep installed; should create imports/exports artifacts.",
+    "expected_behaviors": [
+      "Creates a compact map output directory with summary, imports, and exports artifacts"
+    ]
+  },
+  {
+    "id": "case_7",
+    "input": "map the codebase without ast-grep",
+    "context": "Simulate missing ast-grep; expect warnings and graceful fallback.",
+    "expected_behaviors": [
+      "Skips unavailable tools with a clear warning instead of failing hard"
+    ]
+  },
+  {
+    "id": "case_8",
+    "input": "map this repo with a tiny budget",
+    "context": "Low token budget; digest should report limits/truncation.",
+    "expected_behaviors": [
+      "Digest reports limits/truncation when caps or budgets omit data"
+    ]
+  },
+  {
+    "id": "case_9",
+    "input": "map the codebase with repomap.json overrides",
+    "context": "repo has repomap.json; expect docs/tests/configs/routes categories to honor overrides.",
+    "expected_behaviors": [
+      "repomap.json overrides docs/tests/configs/routes categorization"
+    ]
+  }
+]

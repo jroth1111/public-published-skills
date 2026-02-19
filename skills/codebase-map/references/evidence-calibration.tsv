@@ -1,0 +1,11 @@
+# domain	key	value
+default	weight.ast	3.0
+default	weight.config	3.0
+default	weight.graph	2.0
+default	weight.lexical	1.0
+default	high_min	5.0
+default	medium_min	2.0
+entrypoint	high_min	4.0
+entrypoint	medium_min	2.0
+route	high_min	4.0
+route	medium_min	2.0

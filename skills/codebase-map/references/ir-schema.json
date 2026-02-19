@@ -1,0 +1,114 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Codebase Map IR",
+  "type": "object",
+  "description": "IR schema v8: adds entity nodes, entity_use edges, and trace links",
+  "required": ["meta", "files", "symbols", "edges"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["version", "generated_at", "repo", "languages", "file_hashes"],
+      "properties": {
+        "version": { "type": "integer" },
+        "generated_at": { "type": "string" },
+        "repo": { "type": "string" },
+        "languages": { "type": "array", "items": { "type": "string" } },
+        "file_hashes": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "index_signature": { "type": "object", "additionalProperties": true },
+        "config": { "type": "object", "additionalProperties": true },
+        "config_source": { "type": "string" },
+        "tool_versions": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "warnings": { "type": "array", "items": { "type": "string" } },
+        "unsupported_languages": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" }
+        },
+        "monorepo": { "type": "object", "additionalProperties": true },
+        "entrypoints": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "entities": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "trace_links": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "test_summary": { "type": "object", "additionalProperties": true }
+      },
+      "additionalProperties": true
+    },
+    "entities": {
+      "type": "object",
+      "patternProperties": {
+        "^entity:": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "name": { "type": "string" },
+            "kind": { "type": ["string", "null"] },
+            "path": { "type": "string" },
+            "fields": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+            "relations": { "type": "array", "items": { "type": "string" } },
+            "source": { "type": "string" }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "files": {
+      "type": "object",
+      "patternProperties": {
+        "^file:": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "path": { "type": "string" },
+            "language": { "type": "string" },
+            "role": { "type": "string" },
+            "summary_1l": { "type": "string" },
+            "imports": { "type": "array", "items": { "type": "string" } },
+            "exports": { "type": "array", "items": { "type": "string" } },
+            "defines": { "type": "array", "items": { "type": "string" } },
+            "entrypoint_role": { "type": ["string", "null"] },
+            "score": { "type": "number" }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "symbols": {
+      "type": "object",
+      "patternProperties": {
+        "^sym:": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "name": { "type": "string" },
+            "kind": { "type": "string" },
+            "signature": { "type": "string" },
+            "defined_in": { "type": "object", "additionalProperties": true },
+            "exports": { "type": "boolean" },
+            "score": { "type": "number" }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "edges": {
+      "type": "object",
+      "properties": {
+        "file_dep": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "external_dep": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "symbol_ref": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "dataflow": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "type_ref": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "entity_use": { "type": "array", "items": { "type": "object", "additionalProperties": true } }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

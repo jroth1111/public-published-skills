@@ -1,0 +1,21 @@
+# Runtime/workspace artifacts (often machine-local, noisy, or sensitive)
+workspace/
+.code-state/
+
+# Python caches
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.ruff_cache/
+
+# OS/editor noise
+.DS_Store
+*.swp
+*.tmp
+*.log
+
+# Local environment files
+.env
+.env.*
