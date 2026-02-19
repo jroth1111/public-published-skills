@@ -1,80 +1,119 @@
-# codebase-map
+# Codebase Map
 
-`codebase-map` maps Rust, TypeScript, and Python repositories into a compact, evidence-backed architecture digest.
+An agent skill that gives your AI assistant the ability to analyze and map Rust, TypeScript, and Python repositories into structured architecture digests.
 
-## What It Does
+---
 
-- Identifies modules and responsibilities
-- Extracts entrypoints
-- Surfaces routes/APIs (when detectable)
-- Surfaces entities/schemas (when detectable)
-- Produces flow/path traces (when enabled)
-- Emits confidence/warning signals for uncertain inference
+## What This Skill Does
 
-## What It Does Not Do
+When installed, your agent can analyze a repository and produce a compact summary of its architecture: what the modules do, where the entrypoints are, what routes and APIs exist, how data flows through the system, and what entities matter - all without modifying any source code.
 
-- It does not modify source code
-- It does not claim capabilities without direct code evidence
+Think of it as giving your agent an "understand this codebase" capability.
 
-## Usage
+---
 
-Run from the skill folder or with `{baseDir}` expanded by your agent runtime.
+## Install
 
-### Quickstart
+From the repository root (`public-published-skills`), copy the skill directory into your agent's skills folder:
 
 ```bash
-python {baseDir}/scripts/main.py map --repo /path/to/repo --out codebase-map/my-repo --profile balanced
+cp -r skills/codebase-map ~/.agent/skills/codebase-map
 ```
 
-### Common Workflows
+Or symlink it:
 
 ```bash
-# Onboarding map
-python {baseDir}/scripts/main.py map --repo /path/to/repo --out codebase-map/my-repo --profile balanced
-
-# API + route surface
-python {baseDir}/scripts/main.py map --repo /path/to/repo --out codebase-map/my-repo --profile balanced --api-contracts --include-routes --routes-mode auto
-
-# Data model understanding
-python {baseDir}/scripts/main.py map --repo /path/to/repo --out codebase-map/my-repo --profile balanced --entity-graph
-
-# Flow/path tracing
-python {baseDir}/scripts/main.py map --repo /path/to/repo --out codebase-map/my-repo --profile balanced --static-traces --trace-depth 3 --trace-max 6
-
-# Targeted exploration
-python {baseDir}/scripts/main.py query --repo /path/to/repo --out codebase-map/my-repo --query auth --depth 2
-python {baseDir}/scripts/main.py expand --repo /path/to/repo --out codebase-map/my-repo --focus auth --depth 2
+ln -s /path/to/public-published-skills/skills/codebase-map ~/.agent/skills/codebase-map
 ```
+
+The agent will pick up `SKILL.md` automatically.
+
+---
+
+## What You Get
+
+Once installed, you can ask your agent things like:
+
+- *"Map out this repo for me"*
+- *"What are the API endpoints in this project?"*
+- *"Show me the data models and how they relate"*
+- *"Trace the auth flow end to end"*
+- *"I just joined this project - give me the lay of the land"*
+
+The agent will run the appropriate analysis and return a structured map covering modules, entrypoints, routes, entities, flows, and confidence signals.
+
+---
+
+## Supported Languages
+
+| Language | Frameworks Detected |
+|---|---|
+| Rust | axum, actix-web, rocket, warp |
+| Python | FastAPI, Django, Flask, click, typer |
+| TypeScript / JS | Next.js, Express, Fastify, commander, yargs |
+
+Framework detection is automatic based on project manifests (`Cargo.toml`, `pyproject.toml`, `package.json`).
+
+---
 
 ## Profiles
 
-- `fast`: quick structural scan, minimal depth
-- `balanced`: default profile for first-pass architecture understanding
-- `deep`: maximum detail and deeper traces
+The skill supports three analysis depths. You can ask for a specific one or let the agent choose:
 
-## Key Flags
+| Profile | When to Use |
+|---|---|
+| **fast** | Quick look, low token cost |
+| **balanced** | Good default for most repos |
+| **deep** | Full analysis with call chains, AST tracing, optional CodeQL |
 
-- `--profile` (`fast|balanced|deep`)
-- `--out` (output directory)
-- `--focus` (topic boundary)
-- `--budget` (token budget)
-- `--static-traces` (enable flow tracing)
-- `--include-routes` (include route/API section)
-- `--routes-mode` (`auto|heuristic|nextjs|fastapi|django|express|rust|go`)
-- `--api-contracts` (extract API contracts)
-- `--entity-graph` (include entity graph)
-- `--gate-confidence` (non-zero exit if confidence gate fails)
+---
 
-## Repository Contents
+## Prerequisites
 
-- `SKILL.md`: skill contract and trigger description
-- `scripts/`: implementation
-- `reference/` and `spec/`: compact operational references
-- `tests/`: validation suite
+- Python 3.10+
+- The target repository must be locally available (cloned)
 
-## Verification
+### Verify the install
 
 ```bash
-python {baseDir}/scripts/main.py map --repo /path/to/repo --out codebase-map/my-repo --profile balanced
-cd {baseDir} && python -m unittest tests/test_indexer.py tests/test_packer.py
+cd /path/to/public-published-skills/skills/codebase-map
+python -m unittest tests/test_indexer.py tests/test_packer.py
 ```
+
+---
+
+## Configuration
+
+The skill works out of the box with sensible defaults. For advanced tuning (token budgets, trace depth, route detection modes, confidence gates), see the reference docs:
+
+- [`reference/PROFILES.md`](reference/PROFILES.md) - profile comparison
+- [`reference/FLAGS.md`](reference/FLAGS.md) - all available flags
+- [`reference/CONFIG.md`](reference/CONFIG.md) - configuration options
+- [`reference/WORKFLOWS.md`](reference/WORKFLOWS.md) - workflow examples
+- [`reference/TRACE.md`](reference/TRACE.md) - static trace details
+
+---
+
+## How It Works
+
+The agent reads `SKILL.md`, which teaches it how to:
+
+1. Detect the project's language and framework from manifests
+2. Run `scripts/main.py` with the appropriate profile and flags
+3. Return a structured map with confidence tags on every claim
+
+Everything is read-only and static - no code is executed from the target repo, and nothing is modified.
+
+---
+
+## Limitations
+
+- **Rust, TypeScript, and Python only.** Other languages aren't supported yet.
+- **Static analysis.** No runtime tracing. Dynamic routing or heavy metaprogramming may produce incomplete results (the output will say so).
+- **Local repos only.** The repo needs to be on disk.
+
+---
+
+## License
+
+This repository currently has no `LICENSE` file. Add one at the repo root if you want explicit open-source licensing.
