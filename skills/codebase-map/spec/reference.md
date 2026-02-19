@@ -73,10 +73,10 @@
 - `diff` compares the current repo against the cached `ir.json` and reports added/removed/changed files and symbols.
 
 ## IR Schema
-- See `spec/ir-schema.json` for the current JSON schema of `ir.json`.
+- See `ir-schema.json` for the current JSON schema of `ir.json`.
 
 ## Module Map
-- See `spec/modules.md` for module boundaries and responsibilities.
+- See `modules.md` for module boundaries and responsibilities.
 
 ## Edge cases
 - Missing tools: skip step and warn
