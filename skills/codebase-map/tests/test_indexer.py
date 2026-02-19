@@ -96,11 +96,11 @@ class TestIndexer(unittest.TestCase):
         self.assertTrue(match_globs("vendor/lib.js", ["vendor/**"]))
 
     def test_filter_docs(self):
-        files = ["README.md", "src/main.ts", "docs/api.md", "CONTRIBUTING", "references/guide.md", "SKILL.md"]
+        files = ["README.md", "src/main.ts", "docs/api.md", "CONTRIBUTING", "spec/guide.md", "SKILL.md"]
         docs = filter_docs(files)
         self.assertIn("README.md", docs)
         self.assertIn("docs/api.md", docs)
-        self.assertIn("references/guide.md", docs)
+        self.assertIn("spec/guide.md", docs)
         self.assertIn("SKILL.md", docs)
         self.assertNotIn("src/main.ts", docs)
 

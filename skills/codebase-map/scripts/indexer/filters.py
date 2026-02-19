@@ -26,7 +26,7 @@ def filter_docs(
         name = Path(path).name.lower()
         if name in {"skill.md", "agents.md"}:
             docs.append(path)
-        elif "/references/" in lower or lower.startswith("references/"):
+        elif "/spec/" in lower or lower.startswith("spec/"):
             docs.append(path)
         elif name.startswith("readme") or name.startswith("changelog"):
             docs.append(path)

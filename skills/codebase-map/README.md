@@ -69,7 +69,7 @@ python {baseDir}/scripts/main.py expand --repo /path/to/repo --out codebase-map/
 
 - `SKILL.md`: skill contract and trigger description
 - `scripts/`: implementation
-- `reference/` and `references/`: compact operational references
+- `reference/` and `spec/`: compact operational references
 - `tests/`: validation suite
 
 ## Verification
