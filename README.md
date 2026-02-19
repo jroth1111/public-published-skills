@@ -1,4 +1,4 @@
-# My Agent Skills
+# Public Published Skills
 
 Portable Agent Skills repository designed to work across the `skills.sh` ecosystem.
 
@@ -7,14 +7,19 @@ Portable Agent Skills repository designed to work across the `skills.sh` ecosyst
 Install all skills to all supported agents:
 
 ```bash
-npx skills add <your-github-username>/public-published-skills --agent '*' --skill '*' -y
+npx skills add jroth1111/public-published-skills --agent '*' --skill '*' -y
 ```
 
 Install specific skills:
 
 ```bash
-npx skills add <your-github-username>/public-published-skills --skill repo-hygiene --skill issue-triage -y
+npx skills add jroth1111/public-published-skills --skill repo-hygiene --skill issue-triage -y
+npx skills add jroth1111/public-published-skills --skill codebase-map -y
 ```
+
+## Skill Docs
+
+- `skills/codebase-map/README.md`
 
 ## Repo Layout
 
